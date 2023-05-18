@@ -23,10 +23,10 @@ app.use(cors());
 app.post("/seed", (req, res) => seed.handleSeed(req, res, sequelize));
 
 // Routes
-app.post("/signin", (req, res) =>
+app.post("/api/signin", (req, res) =>
   signin.handleSignin(req, res, sequelize, bcrypt)
 );
-app.post("/register", (req, res) =>
+app.post("/api/register", (req, res) =>
   register.handleRegister(req, res, sequelize, bcrypt)
 );
 

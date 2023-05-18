@@ -4,7 +4,7 @@ const handleRegister = (req, res, sequelize, bcrypt) => {
     return res.status(400).json("incorrect form submission");
   }
   const hash = bcrypt.hashSync(password);
-
+  console.log(email, password, first_name);
   sequelize
     .query(
       `

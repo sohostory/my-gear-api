@@ -4,33 +4,33 @@ const getData = (req, res, sequelize) => {
     .query(
       `
       SELECT
-      equipment.name,
-      "model",
-      "serial_number",
-      "purchase_date",
-      "price",
-      "depreciation",
-      "warranty_expire_date",
-      store.name,
-      insurance.name,
-      equipmenttype.name,
-      brand.name
-      
-      
+        equipmenttype.name AS "Equipment Type",
+        brand.name AS "Brand",
+        "model" AS "Model",
+        "serial_number" AS "Serial Number",
+        "price" AS "Purchase Price",
+        Round((price * (1-depreciation)), 2) AS "Current Value",
+        "purchase_date" AS "Purchase Date",
+        "warranty_expire_date" AS "Warranty Expire Date",
+        store.name AS "Store Name",
+        insurance.name AS "Insurance Company"
+        
+        
+            
   
-  FROM users
-      JOIN equipment ON users.id = equipment.user_id
-      JOIN store ON equipment.store_id = store.id
-      JOIN insurancecompany AS insurance ON equipment.insurance_company_id = insurance.id
-      JOIN equipmenttype ON equipment.equipment_type_id = equipmenttype.id
-      JOIN brand ON equipment.brand_id = brand.id
+      FROM users
+          JOIN equipment ON users.id = equipment.user_id
+          JOIN store ON equipment.store_id = store.id
+          JOIN insurancecompany AS insurance ON equipment.insurance_company_id = insurance.id
+          JOIN equipmenttype ON equipment.equipment_type_id = equipmenttype.id
+          JOIN brand ON equipment.brand_id = brand.id
+          
       
-  
-  WHERE
-      users.id = ${id};`,
-      {
-        type: sequelize.QueryTypes.SELECT,
-      }
+      WHERE
+          users.id = ${id};`
+      // {
+      //   type: sequelize.QueryTypes.SELECT,
+      // }
     )
     .then((data) => {
       res.json(data);

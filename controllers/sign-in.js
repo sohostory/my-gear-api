@@ -1,6 +1,7 @@
 const handleSignin = (req, res, sequelize, bcrypt) => {
   const { email, password } = req.body;
   //   console.log("password", password);
+  console.log("request received");
   if (!email || !password) {
     return res.status(400).json("incorrect form submission");
   }
@@ -8,14 +9,15 @@ const handleSignin = (req, res, sequelize, bcrypt) => {
     .query(
       `
             SELECT
-                email, password
+                id, email, password
             FROM
                 users
             WHERE
-                email = '${email}';
+                lower(email) = lower('${email}');
         `
     )
     .then((data) => {
+      console.log("data", data[0][0]);
       //   console.log("return", data[0][0].password);
       //   passwordFromPost = data[0][0].password;
       //   console.log("pw", passwordFromPost);
@@ -27,9 +29,9 @@ const handleSignin = (req, res, sequelize, bcrypt) => {
         return sequelize
           .query(
             `
-                    SELECT *
+                    SELECT id, email, first_name
                     FROM users
-                    WHERE email = '${email}';
+                    WHERE lower(email) = lower('${email}');
                 `
           )
           .then((user) => {
