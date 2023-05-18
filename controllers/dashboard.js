@@ -4,7 +4,7 @@ const getData = (req, res, sequelize) => {
     .query(
       `
       SELECT
-        equipmenttype.name AS "Equipment Type",
+        type.name AS "Type",
         brand.name AS "Brand",
         "model" AS "Model",
         "serial_number" AS "Serial Number",
@@ -14,21 +14,17 @@ const getData = (req, res, sequelize) => {
         "warranty_expire_date" AS "Warranty Expire Date",
         store.name AS "Store Name",
         insurance.name AS "Insurance Company"
-        
-        
-            
   
       FROM users
           JOIN equipment ON users.id = equipment.user_id
           JOIN store ON equipment.store_id = store.id
-          JOIN insurancecompany AS insurance ON equipment.insurance_company_id = insurance.id
-          JOIN equipmenttype ON equipment.equipment_type_id = equipmenttype.id
+          JOIN insurance ON equipment.insurance_id = insurance.id
+          JOIN type ON equipment.equipment_type_id = type.id
           JOIN brand ON equipment.brand_id = brand.id
           
-      
       WHERE
           users.id = ${id};`
-      // {
+
       //   type: sequelize.QueryTypes.SELECT,
       // }
     )

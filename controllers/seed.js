@@ -6,8 +6,8 @@ const handleSeed = (req, res, sequelize) => {
         DROP TABLE IF EXISTS Equipment;
         DROP TABLE IF EXISTS Users;
         DROP TABLE IF EXISTS Store;
-        DROP TABLE IF EXISTS InsuranceCompany;
-        DROP TABLE IF EXISTS EquipmentType;
+        DROP TABLE IF EXISTS Insurance;
+        DROP TABLE IF EXISTS Type;
         DROP TABLE IF EXISTS Brand;
 
         -- Create the Users table
@@ -25,8 +25,8 @@ const handleSeed = (req, res, sequelize) => {
             location text
         );
         
-        -- Create the InsuranceCompany table
-        CREATE TABLE InsuranceCompany (
+        -- Create the Insurance table
+        CREATE TABLE Insurance (
             id serial PRIMARY KEY,
             name text NOT NULL,
             contact_person text,
@@ -34,8 +34,8 @@ const handleSeed = (req, res, sequelize) => {
             email text
         );
         
-        -- Create the EquipmentType table
-        CREATE TABLE EquipmentType (
+        -- Create the Type table
+        CREATE TABLE Type (
             id serial PRIMARY KEY,
             name text NOT NULL
         );
@@ -57,8 +57,8 @@ const handleSeed = (req, res, sequelize) => {
             depreciation numeric(5,2),
             warranty_expire_date date,
             store_id integer REFERENCES Store(id),
-            insurance_company_id integer REFERENCES InsuranceCompany(id),
-            equipment_type_id integer REFERENCES EquipmentType(id),
+            insurance_id integer REFERENCES Insurance(id),
+            type_id integer REFERENCES Type(id),
             brand_id integer REFERENCES Brand(id),
             user_id integer REFERENCES Users(id)
         );
@@ -77,13 +77,13 @@ const handleSeed = (req, res, sequelize) => {
             ('Tripod Universe', 'Chicago');
         
         -- Insert sample data into the InsuranceCompany table
-        INSERT INTO InsuranceCompany (name, contact_person, phone_number, email)
+        INSERT INTO Insurance (name, contact_person, phone_number, email)
         VALUES
             ('InsuranceCo A', 'John Smith', '555-1234', 'johnsmith@example.com'),
             ('InsuranceCo B', 'Jane Doe', '555-5678', 'janedoe@example.com');
         
         -- Insert sample data into the EquipmentType table
-        INSERT INTO EquipmentType (name)
+        INSERT INTO Type (name)
         VALUES
             ('Camera'),
             ('Lens'),
@@ -99,7 +99,7 @@ const handleSeed = (req, res, sequelize) => {
             ('Manfrotto');
         
         -- Insert sample data into the Equipment table
-        INSERT INTO Equipment (name, model, serial_number, purchase_date, price, depreciation, warranty_expire_date, store_id, insurance_company_id, equipment_type_id, brand_id, user_id)
+        INSERT INTO Equipment (name, model, serial_number, purchase_date, price, depreciation, warranty_expire_date, store_id, insurance_id, type_id, brand_id, user_id)
         VALUES
             ('Nikon D750', 'D750', 'SN24680', '2022-05-10', 1499.99, 0.2, '2024-05-09', 1, 1, 1, 2, 1),
             ('Canon EF 70-200mm f/2.8L IS III USM', '70-200mm f/2.8L IS III', 'SN13579', '2022-06-15', 2099.99, 0.3, '2024-06-14', 2, 2, 2, 1, 1),

@@ -5,14 +5,22 @@ const bcrypt = require("bcrypt-nodejs");
 require("dotenv").config();
 
 const { Sequelize } = require("sequelize");
-const { CONNECTION_STRING, SALT_ROUNDS } = process.env;
+const { CONNECTION_STRING, SALT_ROUNDS, DB_CONNECTION_STRING } = process.env;
 
-const sequelize = new Sequelize(CONNECTION_STRING);
+const sequelize = new Sequelize(DB_CONNECTION_STRING, {
+  dialect: "postgres",
+  dialectOptions: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
+});
 
 const seed = require("./controllers/seed.js");
 const signin = require("./controllers/sign-in.js");
 const register = require("./controllers/register.js");
 const dashboard = require("./controllers/dashboard.js");
+const equipment = require("./controllers/equipment.js");
 
 const app = express();
 
@@ -33,6 +41,15 @@ app.post("/api/register", (req, res) =>
 // DB Query
 app.get("/api/equipment/:id", (req, res) =>
   dashboard.getData(req, res, sequelize)
+);
+
+// Add Equipment
+app.post("/api/add-equipment", (req, res) =>
+  equipment.addEquipment(req, res, sequelize)
+);
+
+app.get("/api/select-data/:table", (req, res) =>
+  equipment.getSelectData(req, res, sequelize)
 );
 
 // Start server
