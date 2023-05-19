@@ -49,8 +49,7 @@ const handleSeed = (req, res, sequelize) => {
         -- Create the Equipment table
         CREATE TABLE Equipment (
             id serial PRIMARY KEY,
-            name text NOT NULL,
-            model text,
+            model text NOT NULL,
             serial_number text,
             purchase_date date,
             price numeric(10,2),
@@ -99,13 +98,13 @@ const handleSeed = (req, res, sequelize) => {
             ('Manfrotto');
         
         -- Insert sample data into the Equipment table
-        INSERT INTO Equipment (name, model, serial_number, purchase_date, price, depreciation, warranty_expire_date, store_id, insurance_id, type_id, brand_id, user_id)
+        INSERT INTO Equipment (model, serial_number, purchase_date, price, depreciation, warranty_expire_date, store_id, insurance_id, type_id, brand_id, user_id)
         VALUES
-            ('Nikon D750', 'D750', 'SN24680', '2022-05-10', 1499.99, 0.2, '2024-05-09', 1, 1, 1, 2, 1),
-            ('Canon EF 70-200mm f/2.8L IS III USM', '70-200mm f/2.8L IS III', 'SN13579', '2022-06-15', 2099.99, 0.3, '2024-06-14', 2, 2, 2, 1, 1),
-            ('Sony A7 III', 'A7 III', 'SN75309', '2022-07-20', 1999.99, 0.25, '2024-07-19', 1, 1, 1, 3, 2),
-            ('Sigma 35mm f/1.4 DG HSM Art', '35mm f/1.4 Art', 'SN97531', '2022-08-25', 799.99, 0.15, '2024-08-24', 3, 2, 2, 4, 2),
-            ('Manfrotto BeFree Compact Aluminum Travel Tripod', 'BeFree Compact', 'SN65432', '2022-09-30', 169.99, 0.1, '2024-09-29', 1, 2, 3, 5, 1);         
+            ('D750', 'SN24680', '2022-05-10', 1499.99, 0.2, '2024-05-09', 1, 1, 1, 2, 1),
+            ('70-200mm f/2.8L IS III', 'SN13579', '2022-06-15', 2099.99, 0.3, '2024-06-14', 2, 2, 2, 1, 1),
+            ('A7 III', 'SN75309', '2022-07-20', 1999.99, 0.25, '2024-07-19', 1, 1, 1, 3, 2),
+            ('35mm f/1.4 Art', 'SN97531', '2022-08-25', 799.99, 0.15, '2024-08-24', 3, 2, 2, 4, 2),
+            ('BeFree Compact', 'SN65432', '2022-09-30', 169.99, 0.1, '2024-09-29', 1, 2, 3, 5, 1);         
       `
     )
     .then(() => {

@@ -39,8 +39,12 @@ app.post("/api/register", (req, res) =>
 );
 
 // DB Query
-app.get("/api/equipment/:id", (req, res) =>
+app.get("/api/equipment/user/:id", (req, res) =>
   dashboard.getData(req, res, sequelize)
+);
+
+app.get("/api/equipment/serial/:serial", (req, res) =>
+  dashboard.getEquipment(req, res, sequelize)
 );
 
 // Add Equipment

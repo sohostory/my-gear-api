@@ -1,28 +1,23 @@
 const addEquipment = (req, res, sequelize) => {
+  const {
+    user_id,
+    brand_id,
+    model,
+    serial_number,
+    purchase_date,
+    price,
+    warranty_expire_date,
+    store_id,
+    insurance_id,
+    type_id,
+  } = req.body;
+  console.log(req.body);
   sequelize
     .query(
       `
-        SELECT
-          type.name AS "Type",
-          brand.name AS "Brand",
-          "model" AS "Model",
-          "serial_number" AS "Serial Number",
-          "price" AS "Purchase Price",
-          Round((price * (1-depreciation)), 2) AS "Current Value",
-          "purchase_date" AS "Purchase Date",
-          "warranty_expire_date" AS "Warranty Expire Date",
-          store.name AS "Store Name",
-          insurance.name AS "Insurance Company"
-    
-        FROM users
-            JOIN equipment ON users.id = equipment.user_id
-            JOIN store ON equipment.store_id = store.id
-            JOIN insurance ON equipment.insurance_id = insurance.id
-            JOIN type ON equipment.equipment_type_id = type.id
-            JOIN brand ON equipment.brand_id = brand.id
+     INSERT INTO equipment (model, serial_number, purchase_date, price, depreciation, warranty_expire_date, store_id, insurance_id, type_id, brand_id, user_id)
             
-        WHERE
-            users.id = ${id};`
+     VALUES ('${model}', '${serial_number}', '${purchase_date}', '${price}', '0.2', '${warranty_expire_date}', '${store_id}', '${insurance_id}', '${type_id}', '${brand_id}', '${user_id}')`
 
       //   type: sequelize.QueryTypes.SELECT,
       // }
