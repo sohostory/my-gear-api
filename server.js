@@ -19,6 +19,7 @@ const sequelize = new Sequelize(DB_CONNECTION_STRING, {
 const seed = require("./controllers/seed.js");
 const signin = require("./controllers/sign-in.js");
 const register = require("./controllers/register.js");
+const account = require("./controllers/account.js");
 const dashboard = require("./controllers/dashboard.js");
 const equipment = require("./controllers/equipment.js");
 
@@ -36,6 +37,14 @@ app.post("/api/signin", (req, res) =>
 );
 app.post("/api/register", (req, res) =>
   register.handleRegister(req, res, sequelize, bcrypt)
+);
+
+app.get("/api/user/:id", (req, res) =>
+  account.getAccount(req, res, sequelize, bcrypt)
+);
+
+app.put("/api/user/update", (req, res) =>
+  account.updateAccount(req, res, sequelize, bcrypt)
 );
 
 // DB Query
