@@ -46,12 +46,16 @@ const updateAccount = (req, res, sequelize, bcrypt) => {
                 UPDATE users
                 SET email = '${email}', password = '${hash}', first_name = '${first_name}'
                 WHERE id = ${id};
-                RETURNING *;
+                
+                SELECT
+                    id, email, first_name
+                FROM users
+                WHERE id = ${id};
             `
           )
           .then((user) => {
             console.log("user", user);
-            res.json(user[0]);
+            res.json(user[0][0]);
           })
           .catch((err) => res.status(400).json("unable to update user"));
       } else {
