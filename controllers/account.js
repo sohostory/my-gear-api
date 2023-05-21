@@ -54,7 +54,7 @@ const updateAccount = (req, res, sequelize, bcrypt) => {
             `
           )
           .then((user) => {
-            console.log("user", user);
+            console.log("user", user[0][0]);
             res.json(user[0][0]);
           })
           .catch((err) => res.status(400).json("unable to update user"));
