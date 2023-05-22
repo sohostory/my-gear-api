@@ -37,35 +37,14 @@ const getData = (req, res, sequelize) => {
     });
 };
 
-const getEquipment = (req, res, sequelize) => {
-  const { serial } = req.params;
+const getSelectData = (req, res, sequelize) => {
+  const { table } = req.params;
   sequelize
     .query(
       `
-      SELECT
-        type.name AS "type",
-        brand.name AS "brand",
-        "model" AS "model",
-        "serial_number" AS "serial_number",
-        "price" AS "price",
-        Round((price * (1-depreciation)), 2) AS "depreciation",
-        "purchase_date" AS "date",
-        "warranty_expire_date" AS "warranty",
-        store.name AS "store",
-        insurance.name AS "insurance"
-  
-      FROM users
-          JOIN equipment ON users.id = equipment.user_id
-          JOIN store ON equipment.store_id = store.id
-          JOIN insurance ON equipment.insurance_id = insurance.id
-          JOIN type ON equipment.type_id = type.id
-          JOIN brand ON equipment.brand_id = brand.id
-          
-      WHERE
-          serial_number = '${serial}';`
-
-      //   type: sequelize.QueryTypes.SELECT,
-      // }
+        SELECT *
+        FROM ${table};
+      `
     )
     .then((data) => {
       res.json(data);
@@ -78,5 +57,5 @@ const getEquipment = (req, res, sequelize) => {
 
 module.exports = {
   getData,
-  getEquipment,
+  getSelectData,
 };

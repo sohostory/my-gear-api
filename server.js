@@ -53,7 +53,11 @@ app.get("/api/equipment/user/:id", (req, res) =>
 );
 
 app.get("/api/equipment/serial/:serial", (req, res) =>
-  dashboard.getEquipment(req, res, sequelize)
+  equipment.getEquipment(req, res, sequelize)
+);
+
+app.put("/api/equipment/serial/:serial", (req, res) =>
+  equipment.editEquipment(req, res, sequelize)
 );
 
 // Add Equipment
@@ -62,7 +66,11 @@ app.post("/api/add-equipment", (req, res) =>
 );
 
 app.get("/api/select-data/:table", (req, res) =>
-  equipment.getSelectData(req, res, sequelize)
+  dashboard.getSelectData(req, res, sequelize)
+);
+
+app.delete("/api/delete-equipment/serial/:serial_number", (req, res) =>
+  equipment.deleteEquipment(req, res, sequelize)
 );
 
 // Start server
