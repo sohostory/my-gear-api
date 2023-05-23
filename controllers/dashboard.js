@@ -68,7 +68,7 @@ const addSelectData = (req, res, sequelize) => {
     .query(
       `
         INSERT INTO ${table} (name, user_id)
-        VALUES ('${value}', ${id});
+        VALUES ("${value}", ${id});
       `
     )
     .then((data) => {
