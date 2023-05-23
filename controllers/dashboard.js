@@ -38,12 +38,37 @@ const getData = (req, res, sequelize) => {
 };
 
 const getSelectData = (req, res, sequelize) => {
-  const { table } = req.params;
+  const { id, table } = req.params;
+  console.log("reg", req.body);
+
   sequelize
     .query(
       `
-        SELECT *
-        FROM ${table};
+        SELECT 
+          id,
+          name
+        FROM ${table}
+        WHERE user_id = ${id};
+      `
+    )
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json("Unable to get data");
+    });
+};
+
+const addSelectData = (req, res, sequelize) => {
+  const { id, table } = req.params;
+  const { value } = req.body;
+
+  sequelize
+    .query(
+      `
+        INSERT INTO ${table} (name, user_id)
+        VALUES ('${value}', ${id});
       `
     )
     .then((data) => {
@@ -58,4 +83,5 @@ const getSelectData = (req, res, sequelize) => {
 module.exports = {
   getData,
   getSelectData,
+  addSelectData,
 };

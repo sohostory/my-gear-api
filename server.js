@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Seed DB
-app.post("/seed", (req, res) => seed.handleSeed(req, res, sequelize));
+app.post("/seed", (req, res) => seed.handleSeed(req, res, sequelize, bcrypt));
 
 // Routes
 app.post("/api/signin", (req, res) =>
@@ -65,8 +65,12 @@ app.post("/api/add-equipment", (req, res) =>
   equipment.addEquipment(req, res, sequelize)
 );
 
-app.get("/api/select-data/:table", (req, res) =>
+app.get("/api/select-data/:id/:table", (req, res) =>
   dashboard.getSelectData(req, res, sequelize)
+);
+
+app.post("/api/select-data/:id/:table", (req, res) =>
+  dashboard.addSelectData(req, res, sequelize)
 );
 
 app.delete("/api/delete-equipment/serial/:serial_number", (req, res) =>
