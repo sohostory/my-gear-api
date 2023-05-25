@@ -39,6 +39,7 @@ app.post("/api/register", (req, res) =>
   register.handleRegister(req, res, sequelize, bcrypt)
 );
 
+// Account
 app.get("/api/user/:id", (req, res) =>
   account.getAccount(req, res, sequelize, bcrypt)
 );
@@ -52,25 +53,25 @@ app.get("/api/equipment/user/:id", (req, res) =>
   dashboard.getData(req, res, sequelize)
 );
 
-app.get("/api/equipment/serial/:serial", (req, res) =>
-  equipment.getEquipment(req, res, sequelize)
-);
-
-app.put("/api/equipment/serial/:serial", (req, res) =>
-  equipment.editEquipment(req, res, sequelize)
-);
-
-// Add Equipment
-app.post("/api/add-equipment", (req, res) =>
-  equipment.addEquipment(req, res, sequelize)
-);
-
 app.get("/api/select-data/:id/:table", (req, res) =>
   dashboard.getSelectData(req, res, sequelize)
 );
 
 app.post("/api/select-data/:id/:table", (req, res) =>
   dashboard.addSelectData(req, res, sequelize)
+);
+
+// Equipment
+app.get("/api/equipment/serial/:serial", (req, res) =>
+  equipment.getEquipment(req, res, sequelize)
+);
+
+app.post("/api/add-equipment", (req, res) =>
+  equipment.addEquipment(req, res, sequelize)
+);
+
+app.put("/api/equipment/serial/:serial", (req, res) =>
+  equipment.editEquipment(req, res, sequelize)
 );
 
 app.delete("/api/delete-equipment/serial/:serial_number", (req, res) =>

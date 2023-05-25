@@ -18,9 +18,6 @@ const addEquipment = (req, res, sequelize) => {
      INSERT INTO equipment (model, serial_number, purchase_date, price, depreciation, warranty_expire_date, store_id, insurance_id, type_id, brand_id, user_id)
             
      VALUES ('${model}', '${serial_number}', '${purchase_date}', '${price}', '0.2', '${warranty_expire_date}', '${store_id}', '${insurance_id}', '${type_id}', '${brand_id}', '${user_id}')`
-
-      //   type: sequelize.QueryTypes.SELECT,
-      // }
     )
     .then((data) => {
       res.json(data);
@@ -57,9 +54,6 @@ const getEquipment = (req, res, sequelize) => {
           
       WHERE
           serial_number = '${serial}';`
-
-      //   type: sequelize.QueryTypes.SELECT,
-      // }
     )
     .then((data) => {
       res.json(data);

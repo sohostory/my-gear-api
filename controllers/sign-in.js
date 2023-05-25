@@ -1,6 +1,5 @@
 const handleSignin = (req, res, sequelize, bcrypt) => {
   const { email, password } = req.body;
-  //   console.log("password", password);
   console.log("request received");
   if (!email || !password) {
     return res.status(400).json("incorrect form submission");
@@ -18,11 +17,6 @@ const handleSignin = (req, res, sequelize, bcrypt) => {
     )
     .then((data) => {
       console.log("data", data[0][0]);
-      //   console.log("return", data[0][0].password);
-      //   passwordFromPost = data[0][0].password;
-      //   console.log("pw", passwordFromPost);
-      // //   const hash = bcrypt.hashSync("hello");
-      // //   console.log("hash", hash);
       const isValid = bcrypt.compareSync(password, data[0][0].password);
       console.log(isValid);
       if (isValid) {
